@@ -105,11 +105,17 @@ This guide will walk through how to setup Harbor with an auto generated self sig
 
 
 ### 4. Import Harbor CA Locally to avoid any x509 Errors when accessing Harbor via docker login command.   
+
+   Set environment variable for your registry's FQDN 
+   ```
+   export registryfqdn="InsertFQDNHere"
+   ```
+   
 1. Download CA from the Harbor UI 
    
    Direct link to Harbor CA provided below.   
    ```
-   curl -k https://registry.sys.mytanzudemo.com/api/v2.0/systeminfo/getcert
+   curl -k https://$registryfqdn/api/v2.0/systeminfo/getcert
    ```
 
    Import Harbor CA to be picked up by your local docker daemon (Needed for local development)
@@ -125,7 +131,7 @@ This guide will walk through how to setup Harbor with an auto generated self sig
     Name the new directory the same name as your registry.  
     Example: 
     ```
-    mkdir registry.sys.mytanzudemo.com
+    mkdir $registryfqdn
     ```
 
 3. Now CD to the new directory and create a file called ca.crt.
@@ -134,14 +140,14 @@ This guide will walk through how to setup Harbor with an auto generated self sig
     This could also be done using a single command: 
     Example:  
     ```
-    curl -k https://registry.sys.mytanzudemo.com/api/v2.0/systeminfo/getcert >> ca.crt
+    curl -k https://$registryfqdn/api/v2.0/systeminfo/getcert >> ca.crt
     ```
 
 4. Restart Docker Daemon 
 
 5. Now login to your Harbor Registry 
    ```
-   docker login registry.sys.mytanzudemo.com
+   docker login $registryfqdn
    ```
 
 ### 5. Import Harbor CA remotely to be used by your Tanzu Kubernetes Clusters
