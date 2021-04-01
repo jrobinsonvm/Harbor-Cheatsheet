@@ -178,7 +178,7 @@ This guide will walk through how to setup Harbor with an auto generated self sig
       If you have openssl installed you can do this via command line 
       
    ```
-   openssl base64 -in ca.crt -out encodedca.txt
+   openssl base64 -in ca.crt
    ``` 
    If using the above command, your encoded string will be in encodedca.txt 
 
